@@ -1,7 +1,8 @@
+
 @extends("base")
 @section("conteudo")
 
-<form action="{{route("aluno.store")}}" method="post">
+<form action="{{ route('aluno.store') }}" method="post">
 
     @csrf
 
