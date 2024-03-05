@@ -32,6 +32,17 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nome'=>"required|max: 100",
+            'cpf'=>"required|max: 16",
+            'telefone'=>"nullable",
+        ],[
+            'nome.required' => "O :attribute é obrigatório.",
+            'nome.max' => "São permitidos 100 caracteres.",
+            'cpf.required' => "O :attribute é obrigatório.",
+            'cpf.max' => "São permitidos 16 caracteres.",
+        ]);
+
         Aluno::create(
             [
             'nome' => $request->nome,
@@ -55,7 +66,9 @@ class AlunoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $dado=Aluno::findOrFail($id);
+
+        return view("aluno.form",['dado'=>$dado]);
     }
 
     /**
@@ -63,17 +76,36 @@ class AlunoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nome'=>"required|max: 100",
+            'cpf'=>"required|max: 16",
+            'telefone'=>"nullable",
+        ],[
+            'nome.required' => "O :attribute é obrigatório.",
+            'nome.max' => "São permitidos 100 caracteres.",
+            'cpf.required' => "O :attribute é obrigatório.",
+            'cpf.max' => "São permitidos 16 caracteres.",
+        ]);
+
+        Aluno::updateOrCreate(
+            ['id'=>$request->id],
+            [
+            'nome' => $request->nome,
+            'telefone' => $request->telefone,
+            'cpf' => $request->cpf,
+            ]
+
+            );
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $dado = Aluno::findOrFail($id);
-
-        $dado ->delete();
+        //dd($dado);
+        $dado->delete();
 
         return redirect ('aluno');
     }

@@ -23,7 +23,7 @@
                 <th>Telefone</th>
                 <th>CPF</th>
                 <th colspan="2">Ações</th>
-                ]<th colspan="2">Ações</th>
+                <th colspan="2">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +34,14 @@
                     <td>{{ $item->telefone }}</td>
                     <td>{{ $item->cpf }}</td>
                     <td>Editar</td>
-                    <td><a href="{{ url('aluno/destroy/' .$item->id) }}">Excluir</a></td>
+                    <td><a href="{{ url('aluno/destroy/',$item->id) }}">Excluir</a></td>
+                    <td>
+                        <form action="{{route('aluno.destroy')}}" method="post">
+                            @method("DELETE")
+                            @csrf
+                            <input type="submit" value="Deletar">
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
