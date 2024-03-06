@@ -6,7 +6,7 @@ use App\Http\Controllers\AlunoController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+/*
 //routes/web.php
 Route::get('/aluno', [AlunoController::class,"index"]);
 //carrega o formulario
@@ -18,6 +18,8 @@ Route::post('/aluno', [AlunoController::class,"store"])->name('aluno.store');
 Route::delete('/aluno/{$aluno}', [AlunoController::class,"destroy"])->name('aluno.destroy');
 Route::get('/aluno/edit/{id}', [AlunoController::class,"edit"])->name('aluno.edit');
 Route::post('/aluno', [AlunoController::class,"update"])->name('aluno.update');
+*/
+Route::resource('aluno', AlunoController::class);
 
 //busca no formulario
 Route::post('/aluno/search', [AlunoController::class,"search"])->name('aluno.search');

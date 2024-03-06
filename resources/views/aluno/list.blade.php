@@ -15,7 +15,7 @@
 
 
     <hr>
-    <table>
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>ID</th>
@@ -33,10 +33,9 @@
                     <td>{{ $item->nome }}</td>
                     <td>{{ $item->telefone }}</td>
                     <td>{{ $item->cpf }}</td>
-                    <td>Editar</td>
-                    <td><a href="{{ url('aluno/destroy/',$item->id) }}">Excluir</a></td>
+                    <td><a href="{{route('aluno.edit', $item->id)}}">Editar</a></td>
                     <td>
-                        <form action="{{route('aluno.destroy')}}" method="post">
+                        <form action="{{route('aluno.destroy', $item)}}" method="post">
                             @method("DELETE")
                             @csrf
                             <input type="submit" value="Deletar">
