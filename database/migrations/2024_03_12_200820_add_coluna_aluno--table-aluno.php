@@ -10,19 +10,21 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {//database/migration
-        Schema::create('alunos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome',100);
-            $table->timestamps();
-        });
-    }
+    {
+        Schema::disableForeignKeyConstraints();
+     Schema::table('alunos', function (Blueprint $table)
+     {
+        $table->foreignId('categoria_id')->nullable()->constrained('categorias')->after('id');
+    });
 
+    Schema::enableForeignKeyConstraints();
+
+    }
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('alunos');
+        //
     }
 };

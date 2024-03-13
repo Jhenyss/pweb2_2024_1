@@ -1,75 +1,58 @@
+@extends('base')
+@section('conteudo')
 
-@extends("base")
-@section("conteudo")
+@php
+    if(!empty($dado->id)){
 
-
-    @csrf
-
-    @php
-        if(!empty($dado->id)){
-            $route = route('aluno.update', $dado->id);
-        }
-
-        else {
-            $route = route('aluno.store');
-        }
-
-    @endphp
-
-        <form action="{{ route('aluno.store') }}" method="post">
+    $route= route('aluno.update',$dado->id);
+    }else{
+      $route = route('aluno.store');
+    }
+@endphp
+<form action= "{{$route}}" method="post">
 
     @csrf
 
-    @if(!empty($dado->id))
-        @method('put')
+    @if (!empty($dado->id))
+    @method('put')
+
     @endif
 
     <input type="hidden" name="id"
+    value="@if (!empty($dado->id)) {{$dado->id}} @else{{''}} @endif"><br>
 
-    value="@if (!empty($dado->id)){{$dado->id}}
 
-    @else{{''}}
+    <label for=""> Nome</label> <br>
+    <input type="text" name="nome"  class="form-control"
+     value="@if(!empty ($dado->nome)){{$dado->nome}}
+     @elseif (!empty(old ('nome'))) {{old('nome')}} else{{""}} @endif"> <br>
 
-    @endif">
+    <label for="">Telefone</label> <br>
+     <input type="text" name="telefone"  class="form-control"
+     value="@if(!empty ($dado->telefone)){{$dado->telefone}}
+     @elseif (!empty(old ('telefone'))) {{old('telefone')}} else{{""}} @endif"> <br>
 
-    <label for="">Nome</label><br>
-    <input type="text"
-    name="nome" class="form-control"
-    value="@if(!empty($dado->nome))
-    {{$dado->nome}}
+    <label for="">CPF</label>
+    <input type="text" name="cpf"  class="form-control"
+     value="@if(!empty ($dado->cpf)){{$dado->cpf}}
+     @elseif (!empty(old ('cpf'))) {{old('cpf')}} else{{""}} @endif"> <br>
 
-    @elseif (!empty(old ('nome'))) {{old('nome')}}p
+     <label for="">Categorias</label>
+    <select name="categoria_id" class="form-select">
+    @foreach ($categorias as $item)
+            <option value="{{$item->id}}">{{$item->nome}}</option>
+                @endforeach
+    </select><br>
 
-    @else{{""}}
-
-    @endif"><br>
-
-    <label for="">Telefone</label><br>
-    <input type="text" name="telefone" class="form-control"
-
-    value="@if(!empty($dado->telefone))
-    {{$dado->telefone}}
-
-    @elseif (!empty(old ('telefone'))) {{old('telefone')}}p
-
-    @else{{""}}
-
-    @endif"><br>
-
-    <label for="">CPF</label><br>
-    <input type="text" name="cpf" class="form-control"
-
-    value="@if(!empty($dado->cpf))
-    {{$dado->cpf}}
-
-    @elseif (!empty(old ('cpf'))) {{old('cpf')}}p
-
-    @else{{""}}
-
-    @endif"><br>
-
-    <button type="submit">Salvar</button>
-    <button><a href="{{url ('aluno')}}">Voltar</a></button>
+    <button type="submit" > Salvar</button>
+    <button><a href="{{url('aluno')}} ">Voltar</a></button>
 
 </form>
 @stop
+
+
+
+
+
+
+
